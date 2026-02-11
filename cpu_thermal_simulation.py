@@ -172,7 +172,7 @@ def optimize_and_return(grid_10x10, power_dict, n_iter=1000):
     plt.subplot(1, 2, 1)
     plt.imshow(simulate(grid_10x10, power_dict), cmap='coolwarm', origin='upper')
     plt.colorbar(label="Température (°C)")
-    plt.title("Configuration Initiale\nTmax = {current_Tmax:.2f}°C")
+    plt.title(f"Configuration Initiale\nTmax = {current_Tmax:.2f}°C")
     
     plt.subplot(1, 2, 2)
     plt.imshow(best_heatmap, cmap='coolwarm', origin='upper')
@@ -242,8 +242,8 @@ def find_connected_components(grid, i, j):
     
     return cluster
 
-# Exemple d'utilisation
-optimized_grid, heatmap, Tmax, Tmin = optimize_and_return(grid_10x10, power_dict, n_iter=200)
+# Exemple d'utilisation : changer n_iter pour de meilleurs résultats d'optim.
+optimized_grid, heatmap, Tmax, Tmin = optimize_and_return(grid_10x10, power_dict, n_iter=200) 
 
 # Affichage texte de la grille optimisée
 print("Grille optimisée :")
