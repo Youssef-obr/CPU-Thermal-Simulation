@@ -73,6 +73,16 @@ The optimization framework is compatible with more detailed geometrical models.
 
 ---
 
+## Results
+
+### Simulated Thermal Map
+![Simulated Heatmap](results/heatmap_simulated.png)
+
+### Optimized Configuration
+![Optimized Heatmap](results/heatmap_optimized.png)
+
+---
+
 ## Key Concepts
 
 - Heat equation
