@@ -2,140 +2,93 @@
 
 ## Overview
 
-Modern CPUs dissipate high power densities, leading to hotspots that impact performance and reliability.
+Modern CPUs dissipate high thermal power densities, leading to the formation of hotspots that negatively impact performance and reliability. Efficient thermal management is therefore critical to maintain computational efficiency while minimizing cooling costs.
 
-This project models heat diffusion inside a CPU die using a thermal RC network derived from the heat equation. The implementation was applied to a simplified model of the **Intel Atom D2700**, using a coarse mesh for computational efficiency. The framework is modular and can be extended to finer discretizations or more complex architectures.
+This project investigates the modeling and optimization of heat diffusion within a CPU die. The objective is to simulate temperature distribution, analyze hotspot formation, and optimize geometric configurations to improve thermal dissipation.
 
-Developed as part of a TIPE (CPGE research project).
+The model was applied to a test architecture inspired by the **Intel Atom D2700**, using a simplified spatial discretization (mesh) to ensure computational efficiency. The framework, however, is modular and can be extended to finer meshes and more complex architectures.
 
----
-
-## Governing Equation
-
-Heat diffusion is governed by:
-
-$$
-\rho c \frac{\partial T}{\partial t} = \nabla \cdot (k \nabla T) + P
-$$
-
-where:
-- $\rho c$ is the volumetric heat capacity,
-- $k$ the thermal conductivity,
-- $P$ the power density.
+This work was developed as part of a TIPE (CPGE research project).
 
 ---
 
-## Thermal RC Discretization
+## Problem Statement
 
-The die is discretized into a 2D grid. Each cell is modeled as a thermal capacitance connected to its neighbors via thermal resistances.
+How can thermal diffusion within a CPU be modeled and optimized in order to:
 
-For each node $i$:
+- Limit the formation of hotspots,
+- Prevent performance degradation,
+- Improve overall thermal efficiency?
 
-$$
-C_i \frac{dT_i}{dt}
-=
-\sum_{j \in V(i)} \frac{T_j - T_i}{R_{ij}}
-+ P_i
-- h_i A_i (T_i - T_{amb})
-+ \frac{T_{sub} - T_i}{R_b}
-$$
-
-This produces a coupled system of ODEs.
+What numerical models and optimization methods allow for a more homogeneous temperature distribution under realistic CPU constraints?
 
 ---
 
-## Crank–Nicolson Time Scheme
+## Methodology
 
-To ensure stability and second-order accuracy in time, the Crank–Nicolson scheme is used:
+### 1. Thermal Modeling
 
-$$
-\frac{C_i}{\Delta t}(T_i^{n+1} - T_i^n)
-=
-\frac{1}{2} \left[ F_i(T^n) + F_i(T^{n+1}) \right]
-$$
+The CPU die is discretized into a 2D thermal grid (thermal RC network model):
 
-After rearrangement, this leads to a linear system:
+- Each cell is modeled as a thermal capacitance,
+- Neighbor interactions are modeled via thermal resistances.
 
-$$
-A T^{n+1} = B T^n + S
-$$
+The heat transfer process is governed by the heat equation.
 
-Properties:
-
-- Unconditionally stable  
-- Second-order accuracy in time ($O(\Delta t^2)$)  
-- Energy consistent  
+For computational efficiency, a simplified mesh was implemented for the Intel Atom D2700 test case. The discretization can be refined to increase spatial resolution or adapted to different processor geometries.
 
 ---
 
-## Matrix Structure
+### 2. Numerical Resolution
 
-For $N = n_x \times n_y$ nodes:
+Two main numerical approaches were implemented:
 
-Diagonal entries:
+- **Crank–Nicolson scheme** for transient heat diffusion  
+- **Conjugate Gradient method** for solving the linear systems arising from spatial discretization in steady-state regimes  
 
-$$
-A_{ii} =
-\frac{C_i}{\Delta t}
-+
-\frac{1}{2} \sum_{j \in V(i)} \frac{1}{R_{ij}}
-+
-\frac{h_i A_i}{2}
-+
-\frac{1}{2 R_b}
-$$
-
-Off-diagonal entries:
-
-$$
-A_{ij} = -\frac{1}{2R_{ij}}
-$$
-
-The matrix $A$ is sparse, symmetric, and positive definite.
+The implementation focuses on numerical stability, convergence, and computational cost.
 
 ---
 
-## Numerical Solver
+### 3. Thermal Analysis
 
-The linear system is solved using the **Conjugate Gradient (CG)** method, which is well-suited for large sparse symmetric positive definite systems.
+The simulation enables:
 
----
-
-## Geometric Optimization
-
-A simulated annealing procedure is used to optimize the spatial arrangement of functional blocks in order to:
-
-- Reduce maximum temperature
-- Minimize thermal gradients
-
-On the Intel Atom D2700 test configuration, the optimization reduced peak temperature by approximately 5°C.
+- Identification of hotspot regions
+- Evaluation of peak temperatures
+- Analysis of thermal gradients
+- Comparison between different geometric configurations
 
 ---
 
-## Reliability Impact
+### 4. Geometric Optimization
 
-Using the Arrhenius law:
+The spatial layout of functional blocks was modified in order to:
 
-$$
-MTTF \propto e^{\frac{E_a}{k_B T}}
-$$
+- Reduce maximum temperature,
+- Minimize temperature gradients,
+- Improve overall heat spreading.
 
-A temperature reduction from 56°C to 51°C yields an estimated lifetime increase of approximately 38%.
-
----
-
-## Technical Stack
-
-- Python
-- NumPy
-- Sparse matrix assembly
-- Conjugate Gradient solver
-- Scientific visualization
-
+The optimization framework is compatible with more detailed geometrical models.
 
 ---
 
-## Keywords
+## Key Concepts
 
-Heat equation, thermal RC network, Crank–Nicolson, sparse matrices, conjugate gradient, floorplanning optimization, hotspot mitigation.
+- Heat equation
+- Thermal RC modeling
+- Numerical discretization
+- Crank–Nicolson scheme
+- Conjugate Gradient method
+- Hotspot analysis
+- Geometric thermal optimization
+
+---
+
+## References
+
+- Skadron et al., *HotSpot: A Compact Thermal Modeling Methodology*
+- Crank & Nicolson, *Numerical Evaluation of Heat-Conduction Equations*
+- Hestenes & Stiefel, *Methods of Conjugate Gradients for Solving Linear Systems*
+
 
