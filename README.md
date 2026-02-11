@@ -84,6 +84,14 @@ The optimization framework is compatible with more detailed geometrical models.
 ### Optimized Die Configuration & Floorplan
 ![Optimized Heatmap](results/heatmap_optimized.png)
 
+### Results Summary
+
+The simulated temperatures are consistent with infrared measurements, validating the thermal RC model.  
+Geometric optimization reduced peak temperature by approximately 5°C, corresponding to an estimated 38% increase in lifetime according to the Arrhenius law.
+
+Due to confidentiality constraints on detailed architectural and material data, the model relies on simplified assumptions, which limit further refinement of spatial heterogeneity.
+
+
 ---
 
 ## Key Concepts
