@@ -81,5 +81,29 @@ Different geometric layouts are evaluated through simulation.
 
 ---
 
-## Repository Structure
+## Key Concepts
+
+- Heat equation
+- Thermal RC modeling
+- Numerical discretization
+- Crank–Nicolson scheme
+- Conjugate Gradient method
+- Hotspot analysis
+- Geometric thermal optimization
+
+---
+
+## References
+
+- Skadron et al., *HotSpot: A Compact Thermal Modeling Methodology*
+- Crank & Nicolson, *Numerical Evaluation of Heat-Conduction Equations*
+- Hestenes & Stiefel, *Methods of Conjugate Gradients for Solving Linear Systems*
+- Tiwari et al., *Infrared Thermography for Thermal Analysis of Integrated Circuits*
+- Coskun & Rosing, *Optimizing Thermal Profiles of Multi-Core Processors*
+
+---
+
+## Author
+
+Developed as part of a preparatory class research project (TIPE), focusing on physical thermal modeling, numerical simulation, and optimization.
 
