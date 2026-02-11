@@ -75,10 +75,13 @@ The optimization framework is compatible with more detailed geometrical models.
 
 ## Results
 
-### Simulated Thermal Map
+### Simulated vs Measured Thermal Maps of the CPU Die
 ![Simulated Heatmap](results/heatmap_simulated.png)
 
-### Optimized Configuration
+### Numerical vs Experimental Thermal Results
+![Simulated Heatmap](results/simulation.png)
+
+### Optimized Die Configuration & Floorplan
 ![Optimized Heatmap](results/heatmap_optimized.png)
 
 ---
